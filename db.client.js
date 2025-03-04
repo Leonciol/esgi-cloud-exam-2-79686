@@ -1,9 +1,16 @@
 const { Sequelize } = require('sequelize')
 
+const database_url = process.env.DATABASE_URL;
+
+if (!database_url) {
+  console.error("ERROR db not exsit");
+  process.exit(1); 
+}
+
 // database
-const sequelize = new Sequelize(
-  'postgres:DATABASE_URL', // TODO
+const sequelize = new Sequelize(database_url,
   {
+    dialect: 'postgres',
     dialectOptions: {
       ssl: {
         require: true,
